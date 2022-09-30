@@ -41,14 +41,23 @@ function verifmail(input) {
 }
 function verifPass(input, verifInput) {
 	const { value } = input;
-	if (value.length >= 6) {
+
+	if (validatePassword(value)) {
 		if (value === verifInput.value) {
-            return true;
-		}else {
-            showErr(`The password's confirmation isn't the same as your password`);
-        }
+			return true;
+		} else {
+			showErr(
+				`The password's confirmation isn't the same as your password`
+			);
+		}
 	} else {
-		showErr(`Please enter at least a 6 caracters password`);
+		showErr(`Your Password need to contain at least 1 lowercase Letter, 1 Capital Letter, 1 special caracters, a number and need to be between 8 and 25 caracters long`);
 		return false;
 	}
 }
+
+const validatePassword = (password) => {
+	return String(password).match(
+		/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,25})$/
+	);
+};

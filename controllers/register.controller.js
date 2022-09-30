@@ -71,7 +71,7 @@ export const postLoginUser = async (req, res) => {
 		req.flash('error', 'user not found');
 		return res.redirect('/login');
 	}
-	console.log(user);
+	// console.log(user);
 	const isValidPsw = bcrypt.compareSync(psw, user.password);
 	if (isValidPsw) {
 		req.session.token = jwt.sign(
