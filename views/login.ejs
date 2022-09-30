@@ -3,7 +3,7 @@
 		<div class="signup-form">
 			<h2 class="ui header">LOGIN</h2>
 			<form action="/login" method="post" class="ui form large">
-				<p><% if (error) { %> <%= error %> <% } %></p>
+				<p><%= error %></p>
 				<div class="field">
 					<label for="email">Email</label>
 					<input
@@ -25,6 +25,7 @@
 
 				<button class="ui button" type="submit">Log in</button>
 			</form>
+			<a href="/">to register page</a>
 		</div>
 	</div>
 </section>

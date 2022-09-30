@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
 	const inputLastname = document.querySelector('#lname');
 	const inputEmail = document.querySelector('#email');
 	const inputPassword = document.querySelector('#psw');
+	const inputConfirmPsw = document.querySelector('#confirmedpsw');
 	const btn = document.querySelector('.button');
 
 	btn.addEventListener('click', (e) => {
@@ -11,7 +12,7 @@ window.addEventListener('DOMContentLoaded', (e) => {
 			verifinputTxt(inputFirstname) &&
 			verifinputTxt(inputLastname) &&
 			verifmail(inputEmail) &&
-			verifPass(inputPassword)
+			verifPass(inputPassword, inputConfirmPsw)
 		) {
 			document.querySelector('#form').submit();
 		}
@@ -38,11 +39,16 @@ function verifmail(input) {
 	showErr(`Invalid Email`);
 	return false;
 }
-function verifPass(input) {
+function verifPass(input, verifInput) {
 	const { value } = input;
-	if (value.length > 6) {
-		return true;
+	if (value.length >= 6) {
+		if (value === verifInput.value) {
+            return true;
+		}else {
+            showErr(`The password's confirmation isn't the same as your password`);
+        }
+	} else {
+		showErr(`Please enter at least a 6 caracters password`);
+		return false;
 	}
-	showErr(`Please enter at least a 6 caracters password`);
-	return false;
 }

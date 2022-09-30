@@ -18,20 +18,20 @@ export const postAddUser = async (req, res) => {
 	const salt = bcrypt.genSaltSync(saltRound);
 	const psw = bcrypt.hashSync(req.body.psw, salt);
 
-	// if (!validator.isEmail(email)) {
-	// 	return res.json({ error: 'not an email', field: 'email' });
-	// }
+	if (!validator.isEmail(email)) {
+		return res.json({ error: 'not an email', field: 'email' });
+	}
 
-	// if (!validator.isAlpha(fname)) {
-	// 	return res.json({
-	// 		error: 'firstname is not valid',
-	// 		field: 'firstname',
-	// 	});
-	// }
+	if (!validator.isAlpha(fname)) {
+		return res.json({
+			error: 'firstname is not valid',
+			field: 'firstname',
+		});
+	}
 
-	// if (!validator.isAlpha(lname)) {
-	// 	return res.json({ error: 'lastname is not valid', field: 'lastname' });
-	// }
+	if (!validator.isAlpha(lname)) {
+		return res.json({ error: 'lastname is not valid', field: 'lastname' });
+	}
 
 	const userExist =
 		(await getUserByFilter({ email }).length) > 0 ? true : false;
@@ -49,7 +49,8 @@ export const postAddUser = async (req, res) => {
 };
 
 export const getLoginPage = async (req, res) => {
-	res.render('index', { template: 'login', error: null });
+	const [error] = req.flash('error');
+	res.render('index', { template: 'login', error: error });
 };
 
 export const getDashDoardPage = (req, res) => {
@@ -62,10 +63,13 @@ export const postLoginUser = async (req, res) => {
 	const result = await getUserByFilter({ email: email });
 	const [user] = result;
 	if (result.length <= 0) {
-		return res.render('index', {
-			template: 'login',
-			error: 'user not found',
-		});
+		// return res.render('index', {
+		// 	template: 'login',
+		// 	error: req.flash('error', 'user not found'),
+		// });
+		// console.log('user not found');
+		req.flash('error', 'user not found');
+		return res.redirect('/login');
 	}
 	console.log(user);
 	const isValidPsw = bcrypt.compareSync(psw, user.password);
@@ -82,9 +86,11 @@ export const postLoginUser = async (req, res) => {
 		req.session.user = user;
 		res.redirect('/dashboard');
 	} else {
-		return res.render('index', {
-			template: 'login',
-			error: 'bad password',
-		});
+		// return res.render('index', {
+		// 	template: 'login',
+		// 	error: 'bad password',
+		// });
+		req.flash('error', 'incorrect password');
+		return res.redirect('/login');
 	}
 };

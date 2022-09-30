@@ -5,7 +5,8 @@ import mongoose from 'mongoose';
 import { fileURLToPath } from "url";
 import path from "path";
 import session from "express-session";
-// import flash from "connect-flash";
+import flash from "connect-flash";
+import cookieParser from 'cookie-parser';
 
 const { APP_LOCALHOST: hostname, APP_PORT: port } = process.env;
 const URLPORT = `http://${hostname}:${port}`;
@@ -17,15 +18,17 @@ const app = express();
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(cookieParser('keyboard cat'));
 app.use(
 	session({
 		name: 'simple',
 		secret: 'simple',
 		resave: false,
 		saveUninitialized: true,
+		cookie: { maxAge: 180 * 60 * 1000 },
 	})
 );
-// app.use(flash());
+app.use(flash());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
