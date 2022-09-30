@@ -1,0 +1,64 @@
+<section>
+	<div class="ui segment grey form">
+		<div class="signup-form">
+			<h2 class="ui header">CREATE ACCOUNT</h2>
+			<form
+				action="/register"
+				method="post"
+				id="form"
+				class="ui form large"
+			>
+				<span id="error"></span>
+				<div class="field">
+					<label for="fname">Firstname</label>
+					<input
+						type="text"
+						placeholder="Enter Firstname"
+						name="fname"
+						required
+						id="fname"
+					/>
+				</div>
+				<div class="field">
+					<label for="lname">Lastname</label>
+					<input
+						type="text"
+						placeholder="Enter Lastname"
+						name="lname"
+						required
+						id="lname"
+					/>
+				</div>
+				<div class="field">
+					<label for="email">Email</label>
+					<input
+						type="text"
+						placeholder="Enter Email"
+						name="email"
+						required
+						id="email"
+					/>
+				</div>
+				<div class="field">
+					<label for="psw">Password</label>
+					<input
+						type="password"
+						placeholder="Enter Password"
+						name="psw"
+						required
+						id="psw"
+					/>
+				</div>
+
+				<input
+					class="ui button"
+					type="submit"
+					id="btn"
+					value="submit"
+				/>
+			</form>
+            <a href="/login">to login page</a>
+		</div>
+	</div>
+</section>
+<script src="/js/script.js" defer></script>

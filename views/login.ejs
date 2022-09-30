@@ -1,0 +1,30 @@
+<section>
+	<div class="ui segment grey form">
+		<div class="signup-form">
+			<h2 class="ui header">LOGIN</h2>
+			<form action="/login" method="post" class="ui form large">
+				<p><% if (error) { %> <%= error %> <% } %></p>
+				<div class="field">
+					<label for="email">Email</label>
+					<input
+						type="text"
+						placeholder="Enter Email"
+						name="email"
+						required
+					/>
+				</div>
+				<div class="field">
+					<label for="psw">Password</label>
+					<input
+						type="password"
+						placeholder="Enter Password"
+						name="psw"
+						required
+					/>
+				</div>
+
+				<button class="ui button" type="submit">Log in</button>
+			</form>
+		</div>
+	</div>
+</section>
